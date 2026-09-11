@@ -1,5 +1,8 @@
 # 日历
 
+[![Android CI](https://github.com/MangTianYa/GlanceCal/actions/workflows/android.yml/badge.svg)](https://github.com/MangTianYa/GlanceCal/actions/workflows/android.yml)
+[![Release](https://img.shields.io/github/v/release/MangTianYa/GlanceCal?display_name=tag)](https://github.com/MangTianYa/GlanceCal/releases/latest)
+
 使用 Kotlin 和 Jetpack Compose 开发的 Material 3 中国日历 Android 应用。
 
 ## 功能
@@ -20,6 +23,32 @@
 ```
 
 应用首次查看某年份时会从 jsDelivr 获取 `holiday-cn` 数据。点击顶部刷新按钮可更新当前年份附近的缓存。
+
+## 自动构建与发布
+
+推送到 `main` 或创建 Pull Request 时，GitHub Actions 会运行单元测试、构建 Debug APK，并将 APK 上传到该次工作流的 Artifacts。
+
+发布签名 APK 前，在仓库 `Settings > Secrets and variables > Actions` 中配置以下 Secrets：
+
+- `SIGNING_KEYSTORE_BASE64`：`calendar-release.jks` 的 Base64 内容
+- `SIGNING_STORE_PASSWORD`：密钥库密码
+- `SIGNING_KEY_ALIAS`：密钥别名
+- `SIGNING_KEY_PASSWORD`：密钥密码
+
+在 PowerShell 中可通过以下命令生成 Base64 内容：
+
+```powershell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("calendar-release.jks"))
+```
+
+配置完成后，推送符合 `v*` 格式的标签即可自动构建签名 APK并发布到 GitHub Releases：
+
+```shell
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+也可以从 GitHub Actions 的 `Publish Release` 页面手动运行工作流并指定已有标签。Release 页面会包含 APK 和对应的 SHA-256 校验文件。
 
 ## 数据来源
 
