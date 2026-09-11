@@ -24,7 +24,11 @@ class LunarCalendarService {
                 inCurrentMonth = YearMonth.from(date) == month,
                 lunarLabel = festival ?: lunar.dayInChinese,
                 festival = festival,
-                holiday = holidays[date],
+                holiday = holidays[date] ?: if (date.dayOfWeek.value >= 6) {
+                    HolidayInfo(name = "周末", isOffDay = true)
+                } else {
+                    null
+                },
             )
         }
     }
