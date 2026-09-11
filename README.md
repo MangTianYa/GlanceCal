@@ -48,7 +48,7 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-也可以从 GitHub Actions 的 `Publish Release` 页面手动运行工作流并指定已有标签。Release 页面会包含 APK 和对应的 SHA-256 校验文件。
+也可以从 GitHub Actions 的 `Publish Release` 页面手动运行工作流，输入 `1.0.0` 或 `v1.0.0`。工作流会从所选分支构建并创建对应标签。不要输入 `*`。Release 页面会包含 APK 和对应的 SHA-256 校验文件。
 
 ## 数据来源
 
